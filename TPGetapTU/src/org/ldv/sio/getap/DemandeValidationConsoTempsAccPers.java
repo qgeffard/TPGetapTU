@@ -9,9 +9,17 @@ import java.sql.Date;
  */
 
 public class DemandeValidationConsoTempsAccPers {
+	private static final int INITIAL = 0;
+	private static final int ACCEPTEE_ELEVE = 1;
+	private static final int REJETEE_ELEVE = 2;
+	private static final int MODIFIEE_ELEVE = 4;
+	private static final int ANNULEE_ELEVE = 8;
+	private static final int VALIDEE_PROF = 32;
+	private static final int REFUSEE_PROF = 64;
 	private static final int DATE_MODIFIEE = 1024;
 	private static final int DUREE_MODIFIEE = 2048;
 	private static final int AP_MODIFIEE = 4096;
+	
 
 	/**
 	 * Identifiant de la DCTAP
@@ -80,6 +88,14 @@ public class DemandeValidationConsoTempsAccPers {
 		this.accPers = accPers;
 		this.eleve = eleve;
 		this.etat = etat;
+	}
+	
+	public boolean isEtatInitial(){
+		boolean bool = false;
+		if(this.etat==0){
+			bool = true;
+		}
+		return bool;
 	}
 
 	public Long getId() {
@@ -168,6 +184,50 @@ public class DemandeValidationConsoTempsAccPers {
 	public void setEtat(int etat) {
 		this.etat = etat;
 	}
+	
+	//fonctions de transitions
+	//	INITIAL = 0;
+	//	ACCEPTEE_ELEVE = 1;
+	//	REJETEE_ELEVE = 2;
+	//	MODIFIEE_ELEVE = 4;
+	//	ANNULEE_ELEVE = 8;
+	//	VALIDEE_PROF = 32;
+	//	REFUSEE_PROF = 64;
+	//	DATE_MODIFIEE = 1024;
+	//	DUREE_MODIFIEE = 2048;
+	//	AP_MODIFIEE = 4096;
+	 
+	public void valideeParLeProfesseur(){
+		if((this.etat & INITIAL) != 0 || (this.etat & MODIFIEE_ELEVE) != 0){
+			this.etat += VALIDEE_PROF;
+		}
+	}
+	
+	public void refuseeParLeProfesseur(){
+		if((this.etat & INITIAL) != 0 || (this.etat & MODIFIEE_ELEVE) != 0){
+			this.etat += REFUSEE_PROF;
+		}
+	}
+	
+	public void annuleeParEleve(){
+		if((this.etat & INITIAL) != 0 || (this.etat & MODIFIEE_ELEVE) != 0){
+			this.etat += ANNULEE_ELEVE;
+		}
+	}
+	
+	public void modifieeParLeProfesseur(){
+		if((this.etat & INITIAL) != 0 || (this.etat & MODIFIEE_ELEVE) != 0){
+//			if(/*date modif*/);//TODO
+//				this.etat += DATE_MODIFIEE;
+//			if(/*duree modif*/);//TODO
+//				this.etat += DUREE_MODIFIEE;
+//			if(/*AP modif*/);//TODO
+//				this.etat += AP_MODIFIEE;
+		}
+	}
+	
+	
+	
 
 	
 	@Override

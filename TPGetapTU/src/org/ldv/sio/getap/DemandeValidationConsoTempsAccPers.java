@@ -98,7 +98,7 @@ public class DemandeValidationConsoTempsAccPers {
 		}
 		return bool;
 	}
-	
+
 	public boolean isValideeProf() {
 		boolean bool = false;
 		if ((this.etat & VALIDEE_PROF) != 0) {
@@ -106,15 +106,15 @@ public class DemandeValidationConsoTempsAccPers {
 		}
 		return bool;
 	}
-	
-	public boolean isRefuserProf() {
+
+	public boolean isRefuseeProf() {
 		boolean bool = false;
 		if ((this.etat & REFUSEE_PROF) != 0) {
 			bool = true;
 		}
 		return bool;
 	}
-	
+
 	public boolean isAnnuleeEleve() {
 		boolean bool = false;
 		if ((this.etat & ANNULEE_ELEVE) != 0) {
@@ -122,7 +122,7 @@ public class DemandeValidationConsoTempsAccPers {
 		}
 		return bool;
 	}
-	
+
 	public boolean isModifieeEleve() {
 		boolean bool = false;
 		if ((this.etat & MODIFIEE_ELEVE) != 0) {
@@ -130,7 +130,7 @@ public class DemandeValidationConsoTempsAccPers {
 		}
 		return bool;
 	}
-	
+
 	public boolean isAccepteeEleve() {
 		boolean bool = false;
 		if ((this.etat & ACCEPTEE_ELEVE) != 0) {
@@ -138,7 +138,7 @@ public class DemandeValidationConsoTempsAccPers {
 		}
 		return bool;
 	}
-	
+
 	public boolean isRejeteeEleve() {
 		boolean bool = false;
 		if ((this.etat & REJETEE_ELEVE) != 0) {
@@ -146,7 +146,7 @@ public class DemandeValidationConsoTempsAccPers {
 		}
 		return bool;
 	}
-	
+
 	public boolean isModifieeDateProf() {
 		boolean bool = false;
 		if ((this.etat & DATE_MODIFIEE) != 0) {
@@ -154,7 +154,7 @@ public class DemandeValidationConsoTempsAccPers {
 		}
 		return bool;
 	}
-	
+
 	public boolean isModifieeDureeProf() {
 		boolean bool = false;
 		if ((this.etat & DUREE_MODIFIEE) != 0) {
@@ -162,7 +162,7 @@ public class DemandeValidationConsoTempsAccPers {
 		}
 		return bool;
 	}
-	
+
 	public boolean isModifieeApProf() {
 		boolean bool = false;
 		if ((this.etat & AP_MODIFIEE) != 0) {
@@ -170,9 +170,9 @@ public class DemandeValidationConsoTempsAccPers {
 		}
 		return bool;
 	}
+
+	// getter/setter
 	
-	
-	//getter/setter
 	public Long getId() {
 		return id;
 	}
@@ -248,8 +248,8 @@ public class DemandeValidationConsoTempsAccPers {
 	 *            <li>8 - demande annulée par l'élève</li>
 	 *            <li>32 - demande validée par le professeur</li>
 	 *            <li>64 - demande refusée par le professeur</li>
-	 *            <li>1024 - demande où la date a été modifiée par le
-	 *            professeur</li>
+	 *            <li>1024 - demande où la date a été modifiée par le professeur
+	 *            </li>
 	 *            <li>2048 - demande où la durée a été modifiée par le
 	 *            professeur</li>
 	 *            <li>4096 - demande où l'accompagnement personnalisé a été
@@ -260,68 +260,94 @@ public class DemandeValidationConsoTempsAccPers {
 		this.etat = etat;
 	}
 
-	// fonctions de transitions
-	// INITIAL = 0;
-	// ACCEPTEE_ELEVE = 1;
-	// REJETEE_ELEVE = 2;
-	// MODIFIEE_ELEVE = 4;
-	// ANNULEE_ELEVE = 8;
-	// VALIDEE_PROF = 32;
-	// REFUSEE_PROF = 64;
-	// DATE_MODIFIEE = 1024;
-	// DUREE_MODIFIEE = 2048;
-	// AP_MODIFIEE = 4096;
+	//Méthodes
 
 	public void valideeParLeProfesseur() {
-		if (this.isEtatInitial() || this.isModifieeEleve()) {
+		if (!this.isAnnuleeEleve() && !this.isRefuseeProf()
+				&& !this.isAccepteeEleve() && !this.isRejeteeEleve()
+				&& !this.isValideeProf()) {
 			this.etat = this.etat | VALIDEE_PROF;
 		}
 	}
 
 	public void refuseeParLeProfesseur() {
-		if (this.isEtatInitial() || this.isModifieeEleve()) {
+		if (!this.isAnnuleeEleve() && !this.isValideeProf()
+				&& !this.isAccepteeEleve() && !this.isRejeteeEleve()
+				&& !this.isRefuseeProf()) {
 			this.etat = this.etat | REFUSEE_PROF;
 		}
 	}
 
 	public void annuleeParEleve() {
-		if (this.isEtatInitial() || this.isModifieeEleve()) {
+		if (!this.isValideeProf() && !this.isRefuseeProf()
+				&& !this.isAccepteeEleve() && !this.isRejeteeEleve()
+				&& !this.isModifieeApProf() && !this.isModifieeDureeProf()
+				&& !this.isModifieeDateProf()
+				&& !this.isAnnuleeEleve()) {
 			this.etat = this.etat | ANNULEE_ELEVE;
 		}
 	}
 
 	public void modifieeParEleve() {
-		if ((this.isEtatInitial() || this.isModifieeEleve()) && !this.isValideeProf() && !this.isAnnuleeEleve() && !this.isRefuserProf()) {
+		if (!this.isValideeProf() && !this.isRefuseeProf()
+				&& !this.isAccepteeEleve() && !this.isRejeteeEleve()
+				&& !this.isModifieeApProf() && !this.isModifieeDureeProf()
+				&& !this.isModifieeDateProf() && !this.isAnnuleeEleve()) {
 			this.etat = this.etat | MODIFIEE_ELEVE;
 		}
 	}
 
 	public void modifieeDateParLeProfesseur() {
-		if (this.isEtatInitial() || this.isModifieeEleve() || this.isModifieeApProf()|| this.isModifieeDureeProf()) {
-			this.etat = this.etat | DATE_MODIFIEE; 
+		if (!this.isValideeProf() && !this.isRefuseeProf()
+				&& !this.isAccepteeEleve() && !this.isRejeteeEleve()
+				&& !this.isAnnuleeEleve() && !this.isRefuseeProf()
+				&& !this.isValideeProf()) {
+			this.etat = this.etat | DATE_MODIFIEE;
 		}
 	}
 
 	public void modifieeDureeParLeProfesseur() {
-		if (this.isEtatInitial() || this.isModifieeEleve() || this.isModifieeApProf()|| this.isModifieeDateProf()) {
+		if (!this.isValideeProf() && !this.isRefuseeProf()
+				&& !this.isAccepteeEleve() && !this.isRejeteeEleve()
+				&& !this.isAnnuleeEleve() && !this.isRefuseeProf()
+				&& !this.isValideeProf()) {
 			this.etat = this.etat | DUREE_MODIFIEE;
 		}
 	}
 
 	public void modifieeAPParLeProfesseur() {
-		if (this.isEtatInitial() || this.isModifieeEleve() || this.isModifieeDateProf()|| this.isModifieeDureeProf()) {
+		if (!this.isValideeProf() && !this.isRefuseeProf()
+				&& !this.isAccepteeEleve() && !this.isRejeteeEleve()
+				&& !this.isAnnuleeEleve() && !this.isRefuseeProf()
+				&& !this.isValideeProf()) {
 			this.etat = this.etat | AP_MODIFIEE;
 		}
 	}
 
 	public void rejeteParEleve() {
-		if (this.isEtatInitial() || this.isModifieeEleve() || this.isModifieeDateProf()|| this.isModifieeDureeProf()) {
+		if (!this.isValideeProf()
+				&& !this.isRefuseeProf()
+				&& !this.isAccepteeEleve()
+				&& !this.isAnnuleeEleve()
+				&& !this.isRefuseeProf()
+				&& !this.isValideeProf()
+				&& !this.isRejeteeEleve()
+				&& (this.isModifieeApProf() || this.isModifieeDateProf() || this
+						.isModifieeDureeProf())) {
 			this.etat = this.etat | REJETEE_ELEVE;
 		}
 	}
 
 	public void accepteeParEleve() {
-		if (this.isEtatInitial() || this.isModifieeEleve() || this.isModifieeDateProf()|| this.isModifieeDureeProf()) {
+		if (!this.isValideeProf()
+				&& !this.isRefuseeProf()
+				&& !this.isRejeteeEleve()
+				&& !this.isAnnuleeEleve()
+				&& !this.isRefuseeProf()
+				&& !this.isValideeProf()
+				&& !this.isAccepteeEleve()
+				&& (this.isModifieeApProf() || this.isModifieeDateProf() || this
+						.isModifieeDureeProf())) {
 			this.etat = this.etat | ACCEPTEE_ELEVE;
 		}
 	}
@@ -333,9 +359,5 @@ public class DemandeValidationConsoTempsAccPers {
 				+ minutes + ", prof=" + prof + ", accPers=" + accPers
 				+ ", eleve=" + eleve + ", etat=" + etat + "]";
 	}
-
-
-
-
 
 }

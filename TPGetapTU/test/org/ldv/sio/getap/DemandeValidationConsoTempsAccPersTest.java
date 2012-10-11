@@ -50,7 +50,6 @@ public class DemandeValidationConsoTempsAccPersTest {
 			dvctap.setEtat(0);
 			dvctap.valideeParLeProfesseur();
 			dvctap.modifieeParEleve();
-			System.out.println(dvctap.getEtat());
 			assertTrue("Etat valider prof",dvctap.isValideeProf());
 		}catch(DVCTAPException e){
 			
@@ -63,8 +62,7 @@ public class DemandeValidationConsoTempsAccPersTest {
 			dvctap.setEtat(0);
 			dvctap.refuseeParLeProfesseur();
 			dvctap.modifieeParEleve();
-			System.out.println(dvctap.getEtat());
-			assertTrue("Etat refuser prof",dvctap.isRefuserProf());
+			assertTrue("Etat refuser prof",dvctap.isRefuseeProf());
 		}catch(DVCTAPException e){
 			
 		}
@@ -77,8 +75,24 @@ public class DemandeValidationConsoTempsAccPersTest {
 			dvctap.modifieeParEleve();
 			dvctap.annuleeParEleve();
 			dvctap.modifieeParEleve();
-			System.out.println(dvctap.getEtat());
 			assertTrue("Etat modifié élève",dvctap.isAnnuleeEleve());
+		}catch(DVCTAPException e){
+			
+		}
+	}
+	
+	@Test
+	public void testDiffPassageEtat(){
+		try{
+			dvctap.setEtat(0);
+			dvctap.modifieeParEleve();
+			dvctap.valideeParLeProfesseur();
+			dvctap.modifieeParEleve();
+			dvctap.modifieeDureeParLeProfesseur();
+			dvctap.rejeteParEleve();
+			dvctap.valideeParLeProfesseur();
+			System.out.println(dvctap.getEtat());
+			assertTrue("Etat modifié élève",dvctap.isValideeProf());
 		}catch(DVCTAPException e){
 			
 		}

@@ -91,6 +91,12 @@ public class DemandeValidationConsoTempsAccPers {
 	}
 
 	// isser
+	
+	/**
+	 * Test si l'état est initial
+	 * 
+	 * @return un booléen correspondant à cet état 
+	 */
 	public boolean isEtatInitial() {
 		boolean bool = false;
 		if (this.etat == INITIAL) {
@@ -98,7 +104,12 @@ public class DemandeValidationConsoTempsAccPers {
 		}
 		return bool;
 	}
-
+	
+	/**
+	 * Test si l'état est validé par le professeur
+	 * 
+	 * @return un booléen correspondant à cet état 
+	 */
 	public boolean isValideeProf() {
 		boolean bool = false;
 		if ((this.etat & VALIDEE_PROF) != 0) {
@@ -106,7 +117,12 @@ public class DemandeValidationConsoTempsAccPers {
 		}
 		return bool;
 	}
-
+	
+	/**
+	 * Test si l'état est refusé par le professeur
+	 * 
+	 * @return un booléen correspondant à cet état 
+	 */
 	public boolean isRefuseeProf() {
 		boolean bool = false;
 		if ((this.etat & REFUSEE_PROF) != 0) {
@@ -114,7 +130,12 @@ public class DemandeValidationConsoTempsAccPers {
 		}
 		return bool;
 	}
-
+	
+	/**
+	 * Test si l'état est annulé par l'élève
+	 * 
+	 * @return un booléen correspondant à cet état 
+	 */
 	public boolean isAnnuleeEleve() {
 		boolean bool = false;
 		if ((this.etat & ANNULEE_ELEVE) != 0) {
@@ -122,7 +143,12 @@ public class DemandeValidationConsoTempsAccPers {
 		}
 		return bool;
 	}
-
+	
+	/**
+	 * Test si l'état est modifié par l'élève
+	 * 
+	 * @return un booléen correspondant à cet état 
+	 */
 	public boolean isModifieeEleve() {
 		boolean bool = false;
 		if ((this.etat & MODIFIEE_ELEVE) != 0) {
@@ -131,6 +157,11 @@ public class DemandeValidationConsoTempsAccPers {
 		return bool;
 	}
 
+	/**
+	 * Test si l'état est accepté par l'élève
+	 * 
+	 * @return un booléen correspondant à cet état 
+	 */
 	public boolean isAccepteeEleve() {
 		boolean bool = false;
 		if ((this.etat & ACCEPTEE_ELEVE) != 0) {
@@ -139,6 +170,11 @@ public class DemandeValidationConsoTempsAccPers {
 		return bool;
 	}
 
+	/**
+	 * Test si l'état est rejeté par l'élève
+	 * 
+	 * @return un booléen correspondant à cet état 
+	 */
 	public boolean isRejeteeEleve() {
 		boolean bool = false;
 		if ((this.etat & REJETEE_ELEVE) != 0) {
@@ -147,6 +183,11 @@ public class DemandeValidationConsoTempsAccPers {
 		return bool;
 	}
 
+	/**
+	 * Test si l'état du bit sur la date est modifié par le professeur
+	 * 
+	 * @return un booléen correspondant à cet état 
+	 */
 	public boolean isModifieeDateProf() {
 		boolean bool = false;
 		if ((this.etat & DATE_MODIFIEE) != 0) {
@@ -155,6 +196,11 @@ public class DemandeValidationConsoTempsAccPers {
 		return bool;
 	}
 
+	/**
+	 * Test si l'état du bit sur la durée est modifié par le professeur
+	 * 
+	 * @return un booléen correspondant à cet état 
+	 */
 	public boolean isModifieeDureeProf() {
 		boolean bool = false;
 		if ((this.etat & DUREE_MODIFIEE) != 0) {
@@ -163,6 +209,11 @@ public class DemandeValidationConsoTempsAccPers {
 		return bool;
 	}
 
+	/**
+	 * Test si l'état du bit sur l'AP est modifié par le professeur
+	 * 
+	 * @return un booléen correspondant à cet état 
+	 */
 	public boolean isModifieeApProf() {
 		boolean bool = false;
 		if ((this.etat & AP_MODIFIEE) != 0) {
@@ -261,7 +312,10 @@ public class DemandeValidationConsoTempsAccPers {
 	}
 
 	//Méthodes
-
+	
+	/**
+	 * Lève le bit de validation par le professeur en fonction de l'état en cour
+	 */
 	public void valideeParLeProfesseur() {
 		if (!this.isAnnuleeEleve() && !this.isRefuseeProf()
 				&& !this.isAccepteeEleve() && !this.isRejeteeEleve()
@@ -270,6 +324,9 @@ public class DemandeValidationConsoTempsAccPers {
 		}
 	}
 
+	/**
+	 * Lève le bit de refus par le professeur en fonction de l'état en cour
+	 */
 	public void refuseeParLeProfesseur() {
 		if (!this.isAnnuleeEleve() && !this.isValideeProf()
 				&& !this.isAccepteeEleve() && !this.isRejeteeEleve()
@@ -278,6 +335,9 @@ public class DemandeValidationConsoTempsAccPers {
 		}
 	}
 
+	/**
+	 * Lève le bit d'annulation par l'élève en fonction de l'état en cour
+	 */
 	public void annuleeParEleve() {
 		if (!this.isValideeProf() && !this.isRefuseeProf()
 				&& !this.isAccepteeEleve() && !this.isRejeteeEleve()
@@ -288,6 +348,9 @@ public class DemandeValidationConsoTempsAccPers {
 		}
 	}
 
+	/**
+	 * Lève le bit de modification par l'élève en fonction de l'état en cour
+	 */
 	public void modifieeParEleve() {
 		if (!this.isValideeProf() && !this.isRefuseeProf()
 				&& !this.isAccepteeEleve() && !this.isRejeteeEleve()
@@ -297,6 +360,9 @@ public class DemandeValidationConsoTempsAccPers {
 		}
 	}
 
+	/**
+	 * Lève le bit de modification de la date par le professeur en fonction de l'état en cour
+	 */
 	public void modifieeDateParLeProfesseur() {
 		if (!this.isValideeProf() && !this.isRefuseeProf()
 				&& !this.isAccepteeEleve() && !this.isRejeteeEleve()
@@ -306,6 +372,9 @@ public class DemandeValidationConsoTempsAccPers {
 		}
 	}
 
+	/**
+	 * Lève le bit de modification de la durée par le professeur en fonction de l'état en cour
+	 */
 	public void modifieeDureeParLeProfesseur() {
 		if (!this.isValideeProf() && !this.isRefuseeProf()
 				&& !this.isAccepteeEleve() && !this.isRejeteeEleve()
@@ -315,6 +384,9 @@ public class DemandeValidationConsoTempsAccPers {
 		}
 	}
 
+	/**
+	 * Lève le bit de modification de l'AP par le professeur en fonction de l'état en cour
+	 */
 	public void modifieeAPParLeProfesseur() {
 		if (!this.isValideeProf() && !this.isRefuseeProf()
 				&& !this.isAccepteeEleve() && !this.isRejeteeEleve()
@@ -324,6 +396,9 @@ public class DemandeValidationConsoTempsAccPers {
 		}
 	}
 
+	/**
+	 * Lève le bit de rejet par l'élève en fonction de l'état en cour
+	 */
 	public void rejeteParEleve() {
 		if (!this.isValideeProf()
 				&& !this.isRefuseeProf()
@@ -338,6 +413,9 @@ public class DemandeValidationConsoTempsAccPers {
 		}
 	}
 
+	/**
+	 * Lève le bit d'acceptation par l'élève en fonction de l'état en cour
+	 */
 	public void accepteeParEleve() {
 		if (!this.isValideeProf()
 				&& !this.isRefuseeProf()

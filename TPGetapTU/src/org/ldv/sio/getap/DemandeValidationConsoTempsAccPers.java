@@ -313,93 +313,135 @@ public class DemandeValidationConsoTempsAccPers {
 
 	//Méthodes
 	
+	public String errorReporting(){
+		String str = "";
+		if(this.isAnnuleeEleve())
+			str = "La demande a déjà été annulée par l'élève";
+		else if(this.isRefuseeProf())
+			str = "La demande a déjà été refusée par le professeur";
+		else if(this.isAccepteeEleve())
+			str = "La demande a déjà été acceptée par l'élève";
+		else if(this.isRejeteeEleve())
+			str = "La demande a déjà été rejetée par l'élève";
+		else if(this.isValideeProf())
+			str = "La demande a déjà été validée par le professeur";
+		else if(this.isModifieeApProf() || this.isModifieeDateProf() || this.isModifieeDureeProf())
+			str = "La demande a déjà été modifiée par le professeur";
+		else if(this.isModifieeEleve())
+			str = "La demande a déjà été modifiée par l'élève";
+		
+		return str;
+	}
+	
 	/**
 	 * Lève le bit de validation par le professeur en fonction de l'état en cour
+	 * @throws Exception 
 	 */
-	public void valideeParLeProfesseur() {
+	public void valideeParLeProfesseur() throws Exception {
 		if (!this.isAnnuleeEleve() && !this.isRefuseeProf()
 				&& !this.isAccepteeEleve() && !this.isRejeteeEleve()
 				&& !this.isValideeProf()) {
 			this.etat = this.etat | VALIDEE_PROF;
+		}else{
+			throw new Exception(errorReporting());
 		}
 	}
 
 	/**
 	 * Lève le bit de refus par le professeur en fonction de l'état en cour
+	 * @throws Exception 
 	 */
-	public void refuseeParLeProfesseur() {
+	public void refuseeParLeProfesseur() throws Exception {
 		if (!this.isAnnuleeEleve() && !this.isValideeProf()
 				&& !this.isAccepteeEleve() && !this.isRejeteeEleve()
 				&& !this.isRefuseeProf()) {
 			this.etat = this.etat | REFUSEE_PROF;
+		}else{
+			throw new Exception(errorReporting());
 		}
 	}
 
 	/**
 	 * Lève le bit d'annulation par l'élève en fonction de l'état en cour
+	 * @throws Exception 
 	 */
-	public void annuleeParEleve() {
+	public void annuleeParEleve() throws Exception {
 		if (!this.isValideeProf() && !this.isRefuseeProf()
 				&& !this.isAccepteeEleve() && !this.isRejeteeEleve()
 				&& !this.isModifieeApProf() && !this.isModifieeDureeProf()
 				&& !this.isModifieeDateProf()
 				&& !this.isAnnuleeEleve()) {
 			this.etat = this.etat | ANNULEE_ELEVE;
+		}else{
+			throw new Exception(errorReporting());
 		}
 	}
 
 	/**
 	 * Lève le bit de modification par l'élève en fonction de l'état en cour
+	 * @throws Exception 
 	 */
-	public void modifieeParEleve() {
+	public void modifieeParEleve() throws Exception {
 		if (!this.isValideeProf() && !this.isRefuseeProf()
 				&& !this.isAccepteeEleve() && !this.isRejeteeEleve()
 				&& !this.isModifieeApProf() && !this.isModifieeDureeProf()
 				&& !this.isModifieeDateProf() && !this.isAnnuleeEleve()) {
 			this.etat = this.etat | MODIFIEE_ELEVE;
+		}else{
+			throw new Exception(errorReporting());
 		}
 	}
 
 	/**
 	 * Lève le bit de modification de la date par le professeur en fonction de l'état en cour
+	 * @throws Exception 
 	 */
-	public void modifieeDateParLeProfesseur() {
+	public void modifieeDateParLeProfesseur() throws Exception {
 		if (!this.isValideeProf() && !this.isRefuseeProf()
 				&& !this.isAccepteeEleve() && !this.isRejeteeEleve()
 				&& !this.isAnnuleeEleve() && !this.isRefuseeProf()
 				&& !this.isValideeProf()) {
 			this.etat = this.etat | DATE_MODIFIEE;
+		}else{
+			throw new Exception(errorReporting());
 		}
 	}
 
 	/**
 	 * Lève le bit de modification de la durée par le professeur en fonction de l'état en cour
+	 * @throws Exception 
 	 */
-	public void modifieeDureeParLeProfesseur() {
+	public void modifieeDureeParLeProfesseur() throws Exception {
 		if (!this.isValideeProf() && !this.isRefuseeProf()
 				&& !this.isAccepteeEleve() && !this.isRejeteeEleve()
 				&& !this.isAnnuleeEleve() && !this.isRefuseeProf()
 				&& !this.isValideeProf()) {
 			this.etat = this.etat | DUREE_MODIFIEE;
+		}else{
+			throw new Exception(errorReporting());
 		}
 	}
 
 	/**
 	 * Lève le bit de modification de l'AP par le professeur en fonction de l'état en cour
+	 * @throws Exception 
 	 */
-	public void modifieeAPParLeProfesseur() {
+	public void modifieeAPParLeProfesseur() throws Exception {
 		if (!this.isValideeProf() && !this.isRefuseeProf()
 				&& !this.isAccepteeEleve() && !this.isRejeteeEleve()
 				&& !this.isAnnuleeEleve() && !this.isRefuseeProf()
 				&& !this.isValideeProf()) {
 			this.etat = this.etat | AP_MODIFIEE;
+		}else{
+			throw new Exception(errorReporting());
 		}
 	}
 
 	/**
 	 * Lève le bit de rejet par l'élève en fonction de l'état en cour
+	 * @throws Exception 
 	 */
-	public void rejeteParEleve() {
+	public void rejeteParEleve() throws Exception {
 		if (!this.isValideeProf()
 				&& !this.isRefuseeProf()
 				&& !this.isAccepteeEleve()
@@ -410,13 +452,16 @@ public class DemandeValidationConsoTempsAccPers {
 				&& (this.isModifieeApProf() || this.isModifieeDateProf() || this
 						.isModifieeDureeProf())) {
 			this.etat = this.etat | REJETEE_ELEVE;
+		}else{
+			throw new Exception(errorReporting());
 		}
 	}
 
 	/**
 	 * Lève le bit d'acceptation par l'élève en fonction de l'état en cour
+	 * @throws Exception 
 	 */
-	public void accepteeParEleve() {
+	public void accepteeParEleve() throws Exception {
 		if (!this.isValideeProf()
 				&& !this.isRefuseeProf()
 				&& !this.isRejeteeEleve()
@@ -427,6 +472,8 @@ public class DemandeValidationConsoTempsAccPers {
 				&& (this.isModifieeApProf() || this.isModifieeDateProf() || this
 						.isModifieeDureeProf())) {
 			this.etat = this.etat | ACCEPTEE_ELEVE;
+		}else{
+			throw new Exception(errorReporting());
 		}
 	}
 

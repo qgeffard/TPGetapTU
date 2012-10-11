@@ -8,8 +8,9 @@ public class Exemple {
 	
 	/**
 	 * @param args
+	 * @throws Exception 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		Classe classe = new Classe(0, "SIO22");
 		User prof = new User(0l, "Olivier", "Capuozzo", classe, "profPrin");
 		User eleve = new User(1l, "Nizar", "Ben Ragdel", classe, "eleve");

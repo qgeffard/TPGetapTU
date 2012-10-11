@@ -335,37 +335,37 @@ public class DemandeValidationConsoTempsAccPers {
 	
 	/**
 	 * Lève le bit de validation par le professeur en fonction de l'état en cour
-	 * @throws Exception 
+	 * @throws DVCTAPException 
 	 */
-	public void valideeParLeProfesseur() throws Exception {
+	public void valideeParLeProfesseur() throws DVCTAPException {
 		if (!this.isAnnuleeEleve() && !this.isRefuseeProf()
 				&& !this.isAccepteeEleve() && !this.isRejeteeEleve()
 				&& !this.isValideeProf()) {
 			this.etat = this.etat | VALIDEE_PROF;
 		}else{
-			throw new Exception(errorReporting());
+			throw new DVCTAPException(errorReporting());
 		}
 	}
 
 	/**
 	 * Lève le bit de refus par le professeur en fonction de l'état en cour
-	 * @throws Exception 
+	 * @throws DVCTAPException 
 	 */
-	public void refuseeParLeProfesseur() throws Exception {
+	public void refuseeParLeProfesseur() throws DVCTAPException {
 		if (!this.isAnnuleeEleve() && !this.isValideeProf()
 				&& !this.isAccepteeEleve() && !this.isRejeteeEleve()
 				&& !this.isRefuseeProf()) {
 			this.etat = this.etat | REFUSEE_PROF;
 		}else{
-			throw new Exception(errorReporting());
+			throw new DVCTAPException(errorReporting());
 		}
 	}
 
 	/**
 	 * Lève le bit d'annulation par l'élève en fonction de l'état en cour
-	 * @throws Exception 
+	 * @throws DVCTAPException 
 	 */
-	public void annuleeParEleve() throws Exception {
+	public void annuleeParEleve() throws DVCTAPException {
 		if (!this.isValideeProf() && !this.isRefuseeProf()
 				&& !this.isAccepteeEleve() && !this.isRejeteeEleve()
 				&& !this.isModifieeApProf() && !this.isModifieeDureeProf()
@@ -373,75 +373,75 @@ public class DemandeValidationConsoTempsAccPers {
 				&& !this.isAnnuleeEleve()) {
 			this.etat = this.etat | ANNULEE_ELEVE;
 		}else{
-			throw new Exception(errorReporting());
+			throw new DVCTAPException(errorReporting());
 		}
 	}
 
 	/**
 	 * Lève le bit de modification par l'élève en fonction de l'état en cour
-	 * @throws Exception 
+	 * @throws DVCTAPException 
 	 */
-	public void modifieeParEleve() throws Exception {
+	public void modifieeParEleve() throws DVCTAPException {
 		if (!this.isValideeProf() && !this.isRefuseeProf()
 				&& !this.isAccepteeEleve() && !this.isRejeteeEleve()
 				&& !this.isModifieeApProf() && !this.isModifieeDureeProf()
 				&& !this.isModifieeDateProf() && !this.isAnnuleeEleve()) {
 			this.etat = this.etat | MODIFIEE_ELEVE;
 		}else{
-			throw new Exception(errorReporting());
+			throw new DVCTAPException(errorReporting());
 		}
 	}
 
 	/**
 	 * Lève le bit de modification de la date par le professeur en fonction de l'état en cour
-	 * @throws Exception 
+	 * @throws DVCTAPException 
 	 */
-	public void modifieeDateParLeProfesseur() throws Exception {
+	public void modifieeDateParLeProfesseur() throws DVCTAPException {
 		if (!this.isValideeProf() && !this.isRefuseeProf()
 				&& !this.isAccepteeEleve() && !this.isRejeteeEleve()
 				&& !this.isAnnuleeEleve() && !this.isRefuseeProf()
 				&& !this.isValideeProf()) {
 			this.etat = this.etat | DATE_MODIFIEE;
 		}else{
-			throw new Exception(errorReporting());
+			throw new DVCTAPException(errorReporting());
 		}
 	}
 
 	/**
 	 * Lève le bit de modification de la durée par le professeur en fonction de l'état en cour
-	 * @throws Exception 
+	 * @throws DVCTAPException 
 	 */
-	public void modifieeDureeParLeProfesseur() throws Exception {
+	public void modifieeDureeParLeProfesseur() throws DVCTAPException {
 		if (!this.isValideeProf() && !this.isRefuseeProf()
 				&& !this.isAccepteeEleve() && !this.isRejeteeEleve()
 				&& !this.isAnnuleeEleve() && !this.isRefuseeProf()
 				&& !this.isValideeProf()) {
 			this.etat = this.etat | DUREE_MODIFIEE;
 		}else{
-			throw new Exception(errorReporting());
+			throw new DVCTAPException(errorReporting());
 		}
 	}
 
 	/**
 	 * Lève le bit de modification de l'AP par le professeur en fonction de l'état en cour
-	 * @throws Exception 
+	 * @throws DVCTAPException 
 	 */
-	public void modifieeAPParLeProfesseur() throws Exception {
+	public void modifieeAPParLeProfesseur() throws DVCTAPException {
 		if (!this.isValideeProf() && !this.isRefuseeProf()
 				&& !this.isAccepteeEleve() && !this.isRejeteeEleve()
 				&& !this.isAnnuleeEleve() && !this.isRefuseeProf()
 				&& !this.isValideeProf()) {
 			this.etat = this.etat | AP_MODIFIEE;
 		}else{
-			throw new Exception(errorReporting());
+			throw new DVCTAPException(errorReporting());
 		}
 	}
 
 	/**
 	 * Lève le bit de rejet par l'élève en fonction de l'état en cour
-	 * @throws Exception 
+	 * @throws DVCTAPException 
 	 */
-	public void rejeteParEleve() throws Exception {
+	public void rejeteParEleve() throws DVCTAPException {
 		if (!this.isValideeProf()
 				&& !this.isRefuseeProf()
 				&& !this.isAccepteeEleve()
@@ -453,15 +453,15 @@ public class DemandeValidationConsoTempsAccPers {
 						.isModifieeDureeProf())) {
 			this.etat = this.etat | REJETEE_ELEVE;
 		}else{
-			throw new Exception(errorReporting());
+			throw new DVCTAPException(errorReporting());
 		}
 	}
 
 	/**
 	 * Lève le bit d'acceptation par l'élève en fonction de l'état en cour
-	 * @throws Exception 
+	 * @throws DVCTAPException 
 	 */
-	public void accepteeParEleve() throws Exception {
+	public void accepteeParEleve() throws DVCTAPException {
 		if (!this.isValideeProf()
 				&& !this.isRefuseeProf()
 				&& !this.isRejeteeEleve()
@@ -473,7 +473,7 @@ public class DemandeValidationConsoTempsAccPers {
 						.isModifieeDureeProf())) {
 			this.etat = this.etat | ACCEPTEE_ELEVE;
 		}else{
-			throw new Exception(errorReporting());
+			throw new DVCTAPException(errorReporting());
 		}
 	}
 

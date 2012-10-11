@@ -25,13 +25,13 @@ public class Exemple {
 		dvctap.setEtat(0);
 		System.out.println("Demande crée par l'élève : "+dvctap.getEtat());
 		
-		dvctap.setEtat(4);
+		dvctap.modifieeParEleve();
 		System.out.println("Demande modifiée par l'élève : "+dvctap.getEtat());
 		
-		dvctap.setEtat(32);
+		dvctap.valideeParLeProfesseur();
 		System.out.println("Demande validée par le professeur : "+dvctap.getEtat());
 		
-		dvctap.setEtat(4);
+		dvctap.modifieeParEleve();
 		System.out.println("Demande modifiée par l'élève : "+dvctap.getEtat());
 		
 		dvctap.setEtat(2048);

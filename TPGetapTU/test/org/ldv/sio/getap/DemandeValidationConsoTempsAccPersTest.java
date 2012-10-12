@@ -25,77 +25,49 @@ public class DemandeValidationConsoTempsAccPersTest {
 	
 	@Test
 	public void testEtatInitial(){
-		try{
-			
-			assertTrue("Etat initial", dvctap.isEtatInitial());
-		}catch(DVCTAPException e){
-			
-		}
-		
+		assertTrue("Etat initial", dvctap.isEtatInitial());
 	}
 	
 	@Test
 	public void testModifieeEleve(){
-		try{
-			dvctap.modifieeParEleve();
-			assertTrue("Etat modifié élève",dvctap.getEtat() == 4 );
-		}catch(DVCTAPException e){
-			
-		}
+		dvctap.modifieeParEleve();
+		assertTrue("Etat modifié élève",dvctap.getEtat() == 4 );
 	}
 	
 	@Test
-	public void testValiderProfesseur(){
-		try{
-			dvctap.setEtat(0);
-			dvctap.valideeParLeProfesseur();
-			dvctap.modifieeParEleve();
-			fail("Etat modifié élève");
-		}catch(DVCTAPException e){
-			assertTrue(1==1);
-		}
+	public void testModifEleveApresValiderProfesseur(){
+		dvctap.setEtat(0);
+		dvctap.valideeParLeProfesseur();
+		assertFalse("Etat modifié élève",dvctap.modifieeParEleve());
 	}
 	
 	@Test
-	public void testRefuserProfesseur(){
-		try{
-			dvctap.setEtat(0);
-			dvctap.refuseeParLeProfesseur();
-			dvctap.modifieeParEleve();
-			fail("Etat modifié élève");
-		}catch(DVCTAPException e){
-			assertTrue(1==1);
-		}
+	public void testModifEleveApresRefuserProfesseur(){
+		dvctap.setEtat(0);
+		dvctap.refuseeParLeProfesseur();
+		assertFalse("Etat modifié élève",dvctap.modifieeParEleve());
 	}
 	
 	@Test
-	public void testAnnulerEleve() {
-		try{
-			dvctap.setEtat(0);
-			dvctap.modifieeParEleve();
-			dvctap.annuleeParEleve();
-			dvctap.modifieeParEleve();
-			fail("Etat modifié élève");
-		}catch(DVCTAPException e){
-			assertTrue(1==1);
-		}
+	public void testModifEleveApresAnnulerEleve() {
+		dvctap.setEtat(0);
+		dvctap.modifieeParEleve();
+		dvctap.annuleeParEleve();
+		dvctap.modifieeParEleve();
+		assertFalse("Etat modifié élève",dvctap.modifieeParEleve());
 	}
 	
 	@Test
 	public void testDiffPassageEtat(){
-		try{
-			dvctap.setEtat(0);
-			dvctap.modifieeParEleve();
-			dvctap.valideeParLeProfesseur();
-			dvctap.modifieeParEleve();
-			dvctap.modifieeDureeParLeProfesseur();
-			dvctap.rejeteParEleve();
-			dvctap.valideeParLeProfesseur();
-			System.out.println(dvctap.getEtat());
-			fail("Etat modifié élève");
-		}catch(DVCTAPException e){
-			assertTrue(1==1);
-		}
+		dvctap.setEtat(0);
+		dvctap.modifieeParEleve();
+		dvctap.valideeParLeProfesseur();
+		dvctap.modifieeParEleve();
+		dvctap.modifieeDureeParLeProfesseur();
+		dvctap.rejeteParEleve();
+		dvctap.valideeParLeProfesseur();
+		System.out.println(dvctap.getEtat());
+		assertFalse("Etat modifié élève",dvctap.modifieeParEleve());
 	}
 	
 	

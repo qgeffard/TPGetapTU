@@ -18,7 +18,7 @@ public class Exemple {
 		
 		Date date = Date.valueOf("2012-10-07");
 		
-		dvctap = new DemandeValidationConsoTempsAccPers(0l, "2012-2013", date, 240, prof, accPers, eleve, 0);
+		dvctap = new DemandeValidationConsoTempsAccPers(0l, "2012-2013", date, 240, prof, accPers, eleve);
 		
 		System.out.println(dvctap.toString());
 		

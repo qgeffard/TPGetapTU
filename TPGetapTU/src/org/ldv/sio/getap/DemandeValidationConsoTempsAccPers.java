@@ -74,11 +74,10 @@ public class DemandeValidationConsoTempsAccPers {
 	 * @param prof
 	 * @param accPers
 	 * @param eleve
-	 * @param etat
 	 */
 	public DemandeValidationConsoTempsAccPers(Long id, String anneeScolaire,
 			Date date, Integer minutes, User prof, AccPersonalise accPers,
-			User eleve, int etat) {
+			User eleve) {
 		super();
 		this.id = id;
 		this.anneeScolaire = anneeScolaire;
@@ -87,7 +86,7 @@ public class DemandeValidationConsoTempsAccPers {
 		this.prof = prof;
 		this.accPers = accPers;
 		this.eleve = eleve;
-		this.etat = etat;
+		this.etat = 0;
 	}
 
 	// isser
@@ -98,11 +97,7 @@ public class DemandeValidationConsoTempsAccPers {
 	 * @return un booléen correspondant à cet état 
 	 */
 	public boolean isEtatInitial() {
-		boolean bool = false;
-		if (this.etat == INITIAL) {
-			bool = true;
-		}
-		return bool;
+		return this.etat == INITIAL;
 	}
 	
 	/**
@@ -111,11 +106,7 @@ public class DemandeValidationConsoTempsAccPers {
 	 * @return un booléen correspondant à cet état 
 	 */
 	public boolean isValideeProf() {
-		boolean bool = false;
-		if ((this.etat & VALIDEE_PROF) != 0) {
-			bool = true;
-		}
-		return bool;
+		return (this.etat & VALIDEE_PROF) != 0;
 	}
 	
 	/**
@@ -124,11 +115,7 @@ public class DemandeValidationConsoTempsAccPers {
 	 * @return un booléen correspondant à cet état 
 	 */
 	public boolean isRefuseeProf() {
-		boolean bool = false;
-		if ((this.etat & REFUSEE_PROF) != 0) {
-			bool = true;
-		}
-		return bool;
+		return (this.etat & REFUSEE_PROF) != 0;
 	}
 	
 	/**
@@ -137,11 +124,7 @@ public class DemandeValidationConsoTempsAccPers {
 	 * @return un booléen correspondant à cet état 
 	 */
 	public boolean isAnnuleeEleve() {
-		boolean bool = false;
-		if ((this.etat & ANNULEE_ELEVE) != 0) {
-			bool = true;
-		}
-		return bool;
+		return (this.etat & ANNULEE_ELEVE) != 0;
 	}
 	
 	/**
@@ -150,11 +133,7 @@ public class DemandeValidationConsoTempsAccPers {
 	 * @return un booléen correspondant à cet état 
 	 */
 	public boolean isModifieeEleve() {
-		boolean bool = false;
-		if ((this.etat & MODIFIEE_ELEVE) != 0) {
-			bool = true;
-		}
-		return bool;
+		return (this.etat & MODIFIEE_ELEVE) != 0;
 	}
 
 	/**
@@ -163,11 +142,7 @@ public class DemandeValidationConsoTempsAccPers {
 	 * @return un booléen correspondant à cet état 
 	 */
 	public boolean isAccepteeEleve() {
-		boolean bool = false;
-		if ((this.etat & ACCEPTEE_ELEVE) != 0) {
-			bool = true;
-		}
-		return bool;
+		return (this.etat & ACCEPTEE_ELEVE) != 0;
 	}
 
 	/**
@@ -176,24 +151,16 @@ public class DemandeValidationConsoTempsAccPers {
 	 * @return un booléen correspondant à cet état 
 	 */
 	public boolean isRejeteeEleve() {
-		boolean bool = false;
-		if ((this.etat & REJETEE_ELEVE) != 0) {
-			bool = true;
-		}
-		return bool;
+		return (this.etat & REJETEE_ELEVE) != 0;
 	}
 
 	/**
 	 * Test si l'état du bit sur la date est modifié par le professeur
 	 * 
-	 * @return un booléen correspondant à cet état 
+	 * @return un int correspondant à cet état 
 	 */
 	public boolean isModifieeDateProf() {
-		boolean bool = false;
-		if ((this.etat & DATE_MODIFIEE) != 0) {
-			bool = true;
-		}
-		return bool;
+		return (this.etat & DATE_MODIFIEE) != 0;
 	}
 
 	/**
@@ -202,11 +169,7 @@ public class DemandeValidationConsoTempsAccPers {
 	 * @return un booléen correspondant à cet état 
 	 */
 	public boolean isModifieeDureeProf() {
-		boolean bool = false;
-		if ((this.etat & DUREE_MODIFIEE) != 0) {
-			bool = true;
-		}
-		return bool;
+		return (this.etat & DUREE_MODIFIEE) != 0;
 	}
 
 	/**
@@ -215,11 +178,7 @@ public class DemandeValidationConsoTempsAccPers {
 	 * @return un booléen correspondant à cet état 
 	 */
 	public boolean isModifieeApProf() {
-		boolean bool = false;
-		if ((this.etat & AP_MODIFIEE) != 0) {
-			bool = true;
-		}
-		return bool;
+		return (this.etat & AP_MODIFIEE) != 0;
 	}
 
 	// getter/setter
